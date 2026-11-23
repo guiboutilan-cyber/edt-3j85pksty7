@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>EDT – nouvelle adresse</title>
+</head>
+<body style="margin:0;font:16px/1.5 system-ui,sans-serif;background:#141312;color:#f1ede7;text-align:center;padding:60px 20px">
+<p>L'emploi du temps a une nouvelle adresse :<br><a id="lien" style="color:#6fb6f0" href="https://azertypib.github.io/">azertypib.github.io</a></p>
+<script>
+// Ancienne adresse : emporte les reglages de cet appareil (charte, annee, TP, devoirs coches...) vers la nouvelle, puis y va.
+// Le #hash n'est jamais envoye au serveur ; la nouvelle appli le lit, l'enregistre et l'efface.
+var o = {};
+try {
+  for (var i = 0; i < localStorage.length; i++) {
+    var k = localStorage.key(i);
+    if (/^edt\.[A-Za-z0-9]+$/.test(k) && k !== "edt.data") { var v = localStorage.getItem(k); if (v && v.length < 4000) o[k] = v; }
+  }
+} catch (e) {}
+var h = "";
+try { var j = JSON.stringify(o); if (j.length > 2) h = "#migr=" + btoa(unescape(encodeURIComponent(j))).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, ""); } catch (e) {}
+var dest = "https://azertypib.github.io/" + (/admin\.html/.test(location.pathname) ? "admin.html" : h);
+document.getElementById("lien").href = dest;
+location.replace(dest);
+</script>
+</body>
+</html>
